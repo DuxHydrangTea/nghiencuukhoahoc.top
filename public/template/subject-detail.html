@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toán học Lớp 3 - EduFun</title>
+    
+    <!-- TailwindCSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-bounce-gentle {
+            animation: bounce-gentle 2s ease-in-out infinite;
+        }
+        
+        .animate-wiggle {
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        
+        .hover-bounce:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #fef3c7 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- Header -->
+    <header class="navbar bg-white/80 backdrop-blur-sm border-b-2 border-blue-200 sticky top-0 z-50">
+        <div class="navbar-start">
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center animate-bounce-gentle">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="text-2xl font-bold text-primary">EduFun</h1>
+                    <p class="text-sm text-gray-600">Toán học Lớp 3</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="navbar-center hidden lg:flex">
+            <div class="breadcrumbs text-sm">
+                <ul>
+                    <li><a href="index.html" class="text-primary hover:text-secondary">Trang chủ</a></li>
+                    <li><a href="class-detail.html" class="text-primary hover:text-secondary">Lớp 3</a></li>
+                    <li class="text-gray-500">Toán học</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="navbar-end">
+            <a href="class-detail.html" class="btn btn-ghost">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Quay lại lớp
+            </a>
+        </div>
+    </header>
+
+    <!-- Subject Hero Section -->
+    <section class="hero min-h-[50vh] bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+        <div class="hero-content text-center">
+            <div class="max-w-4xl">
+                <div class="text-6xl mb-4 animate-float">🔢</div>
+                <h2 class="text-5xl md:text-6xl font-bold text-primary mb-6">
+                    Toán học Lớp 3
+                </h2>
+                <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
+                    Khám phá thế giới số học thú vị! Học toán vui vẻ với các phép tính cơ bản và bài tập thực hành.
+                </p>
+                <div class="stats shadow bg-white/80 backdrop-blur-sm">
+                    <div class="stat">
+                        <div class="stat-figure text-primary">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-title">Tập sách</div>
+                        <div class="stat-value text-primary">2</div>
+                        <div class="stat-desc">Tập 1 & Tập 2</div>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-figure text-secondary">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-title">Chương</div>
+                        <div class="stat-value text-secondary">16</div>
+                        <div class="stat-desc">chương học</div>
+                    </div>
+                    
+                    <div class="stat">
+                        <div class="stat-figure text-accent">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-title">Bài học</div>
+                        <div class="stat-value text-accent">32</div>
+                        <div class="stat-desc">bài học tổng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volumes Section -->
+    <section class="py-16 px-4">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold text-primary mb-4">Chọn tập sách 📖</h3>
+                <p class="text-xl text-gray-700">Chọn tập sách để bắt đầu học toán nhé!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto" x-data="{ volumes: [
+                { 
+                    volume: 'Tập 1', 
+                    title: 'Toán học cơ bản',
+                    description: 'Học các phép tính cộng, trừ trong phạm vi 100', 
+                    chapters: 8,
+                    lessons: 16,
+                    color: 'from-blue-400 to-blue-600',
+                    bgColor: 'bg-blue-100 border-blue-200',
+                    topics: ['Số và chữ số', 'Phép cộng', 'Phép trừ', 'So sánh số']
+                },
+                { 
+                    volume: 'Tập 2', 
+                    title: 'Toán học nâng cao',
+                    description: 'Học phép nhân, chia và các bài toán có lời văn', 
+                    chapters: 8,
+                    lessons: 16,
+                    color: 'from-green-400 to-green-600',
+                    bgColor: 'bg-green-100 border-green-200',
+                    topics: ['Phép nhân', 'Phép chia', 'Bài toán có lời văn', 'Hình học cơ bản']
+                }
+            ] }">
+                <template x-for="(volume, index) in volumes" :key="index">
+                    <div class="card border-2 hover:scale-105 transition-all duration-300 cursor-pointer hover-bounce" :class="volume.bgColor">
+                        <div class="h-3 bg-gradient-to-r" :class="volume.color"></div>
+                        <div class="card-body">
+                            <div class="flex items-center justify-between mb-4">
+                                <h2 class="card-title text-3xl font-bold text-primary" x-text="volume.volume"></h2>
+                                <div class="badge badge-lg badge-secondary" x-text="volume.chapters + ' chương'"></div>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-800 mb-2" x-text="volume.title"></h3>
+                            <p class="text-gray-600 mb-4" x-text="volume.description"></p>
+                            
+                            <div class="mb-4">
+                                <h4 class="font-semibold text-gray-700 mb-2">Nội dung chính:</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="topic in volume.topics" :key="topic">
+                                        <span class="badge badge-outline" x-text="topic"></span>
+                                    </template>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="text-center bg-white/50 rounded-lg p-3">
+                                    <div class="text-2xl font-bold text-primary" x-text="volume.chapters"></div>
+                                    <div class="text-sm text-gray-600">Chương</div>
+                                </div>
+                                <div class="text-center bg-white/50 rounded-lg p-3">
+                                    <div class="text-2xl font-bold text-primary" x-text="volume.lessons"></div>
+                                    <div class="text-sm text-gray-600">Bài học</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-actions justify-center">
+                                <button class="btn btn-secondary btn-lg w-full" @click="showChapters = volume.volume">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    Xem các chương
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapters Section -->
+    <section class="py-16 px-4 bg-gradient-to-r from-blue-100/50 to-yellow-100/50" x-data="{ showChapters: 'Tập 1' }">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold text-primary mb-4">Các chương học 📚</h3>
+                <p class="text-xl text-gray-700">Chọn chương để xem các bài học chi tiết</p>
+            </div>
+
+            <!-- Volume Tabs -->
+            <div class="tabs tabs-boxed justify-center mb-8 bg-white/50">
+                <a class="tab tab-lg" :class="showChapters === 'Tập 1' ? 'tab-active' : ''" @click="showChapters = 'Tập 1'">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    Tập 1
+                </a>
+                <a class="tab tab-lg" :class="showChapters === 'Tập 2' ? 'tab-active' : ''" @click="showChapters = 'Tập 2'">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    Tập 2
+                </a>
+            </div>
+
+            <!-- Chapters Grid -->
+            <div x-show="showChapters === 'Tập 1'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" x-data="{ chapters1: [
+                { chapter: 'Chương 1', title: 'Số và chữ số', lessons: 2, icon: '1️⃣' },
+                { chapter: 'Chương 2', title: 'Phép cộng không nhớ', lessons: 2, icon: '➕' },
+                { chapter: 'Chương 3', title: 'Phép trừ không nhớ', lessons: 2, icon: '➖' },
+                { chapter: 'Chương 4', title: 'Phép cộng có nhớ', lessons: 2, icon: '🔢' },
+                { chapter: 'Chương 5', title: 'Phép trừ có nhớ', lessons: 2, icon: '📊' },
+                { chapter: 'Chương 6', title: 'So sánh các số', lessons: 2, icon: '⚖️' },
+                { chapter: 'Chương 7', title: 'Bài toán đơn giản', lessons: 2, icon: '🧮' },
+                { chapter: 'Chương 8', title: 'Ôn tập tổng hợp', lessons: 2, icon: '📝' }
+            ] }">
+                <template x-for="(chapter, index) in chapters1" :key="index">
+                    <div class="card bg-white border-2 border-blue-200 hover:scale-105 transition-all duration-300 cursor-pointer hover-bounce">
+                        <div class="card-body text-center">
+                            <div class="text-4xl mb-3 animate-float" x-text="chapter.icon" :style="'animation-delay: ' + (index * 0.1) + 's'"></div>
+                            <h3 class="text-lg font-bold text-primary" x-text="chapter.chapter"></h3>
+                            <h4 class="text-base font-semibold text-gray-700 mb-3" x-text="chapter.title"></h4>
+                            <div class="badge badge-secondary mb-4" x-text="chapter.lessons + ' bài học'"></div>
+                            <button class="btn btn-secondary btn-sm w-full">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                                </svg>
+                                Xem bài học
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <div x-show="showChapters === 'Tập 2'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" x-data="{ chapters2: [
+                { chapter: 'Chương 1', title: 'Bảng nhân 2, 3, 4', lessons: 2, icon: '✖️' },
+                { chapter: 'Chương 2', title: 'Bảng nhân 5, 6, 7', lessons: 2, icon: '🔢' },
+                { chapter: 'Chương 3', title: 'Bảng nhân 8, 9', lessons: 2, icon: '📈' },
+                { chapter: 'Chương 4', title: 'Phép chia cơ bản', lessons: 2, icon: '➗' },
+                { chapter: 'Chương 5', title: 'Phép chia có dư', lessons: 2, icon: '📊' },
+                { chapter: 'Chương 6', title: 'Bài toán có lời văn', lessons: 2, icon: '📖' },
+                { chapter: 'Chương 7', title: 'Hình học cơ bản', lessons: 2, icon: '📐' },
+                { chapter: 'Chương 8', title: 'Ôn tập cuối năm', lessons: 2, icon: '🎯' }
+            ] }">
+                <template x-for="(chapter, index) in chapters2" :key="index">
+                    <div class="card bg-white border-2 border-green-200 hover:scale-105 transition-all duration-300 cursor-pointer hover-bounce">
+                        <div class="card-body text-center">
+                            <div class="text-4xl mb-3 animate-float" x-text="chapter.icon" :style="'animation-delay: ' + (index * 0.1) + 's'"></div>
+                            <h3 class="text-lg font-bold text-primary" x-text="chapter.chapter"></h3>
+                            <h4 class="text-base font-semibold text-gray-700 mb-3" x-text="chapter.title"></h4>
+                            <div class="badge badge-secondary mb-4" x-text="chapter.lessons + ' bài học'"></div>
+                            <button class="btn btn-secondary btn-sm w-full">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                                </svg>
+                                Xem bài học
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-gradient-to-r from-blue-400 to-blue-600 text-white">
+        <div class="grid grid-flow-col gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h4 class="text-2xl font-bold">EduFun - Toán học</h4>
+            </div>
+        </div>
+        <div class="grid grid-flow-col gap-4">
+            <a href="index.html" class="link link-hover">Trang chủ</a>
+            <a href="class-detail.html" class="link link-hover">Lớp 3</a>
+            <a class="link link-hover">Trắc nghiệm</a>
+            <a class="link link-hover">Liên hệ</a>
+        </div>
+        <div>
+            <p>&copy; 2024 EduFun. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP Animations -->
+    <script>
+        $(document).ready(function() {
+            // Animate hero section
+            gsap.from(".hero h2", {duration: 1, y: 50, opacity: 0, ease: "power2.out"});
+            gsap.from(".hero p", {duration: 1, y: 30, opacity: 0, delay: 0.3, ease: "power2.out"});
+            gsap.from(".stats", {duration: 1, y: 20, opacity: 0, delay: 0.6, ease: "power2.out"});
+            
+            // Animate cards on scroll
+            gsap.registerPlugin(ScrollTrigger);
+            
+            gsap.utils.toArray('.card').forEach((card, i) => {
+                gsap.from(card, {
+                    duration: 0.8,
+                    y: 50,
+                    opacity: 0,
+                    delay: i * 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+            
+            // Add click animations for buttons
+            $('.btn').on('click', function() {
+                gsap.to(this, {duration: 0.1, scale: 0.95, yoyo: true, repeat: 1});
+            });
+        });
+    </script>
+</body>
+</html>

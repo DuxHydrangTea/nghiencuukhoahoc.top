@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết tài liệu - Giáo viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <button onclick="history.back()" class="btn btn-ghost btn-circle">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                    </button>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">Chi tiết tài liệu</h1>
+                        <p class="text-sm text-gray-600">Xem và quản lý tài liệu</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button class="btn btn-outline btn-primary">
+                        <i class="fas fa-edit mr-2"></i>Chỉnh sửa
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-download mr-2"></i>Tải xuống
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-8" x-data="documentDetail()">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Document Info -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-2" x-text="document.title"></h2>
+                            <p class="text-gray-600 mb-4" x-text="document.description"></p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="badge badge-primary">Lớp <span x-text="document.class"></span></span>
+                                <span class="badge badge-secondary" x-text="document.subject"></span>
+                                <span class="badge badge-accent" x-text="document.type.toUpperCase()"></span>
+                            </div>
+                        </div>
+                        <div class="text-right text-sm text-gray-500">
+                            <p>Tải lên: <span x-text="document.uploadDate"></span></p>
+                            <p>Lượt tải: <span x-text="document.downloads"></span></p>
+                            <p>Bình luận: <span x-text="document.comments"></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Document Preview -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div class="flex items-center justify-center h-64 bg-white rounded border-2 border-dashed border-gray-300">
+                            <div class="text-center">
+                                <i :class="getFileIcon(document.type)" class="text-6xl mb-4"></i>
+                                <p class="text-lg font-medium text-gray-700" x-text="document.title"></p>
+                                <p class="text-sm text-gray-500">Kích thước: <span x-text="document.fileSize"></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Document Stats -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="stat bg-blue-50 rounded-lg">
+                            <div class="stat-figure text-blue-500">
+                                <i class="fas fa-eye text-2xl"></i>
+                            </div>
+                            <div class="stat-title text-blue-600">Lượt xem</div>
+                            <div class="stat-value text-blue-700" x-text="document.views"></div>
+                        </div>
+                        <div class="stat bg-green-50 rounded-lg">
+                            <div class="stat-figure text-green-500">
+                                <i class="fas fa-download text-2xl"></i>
+                            </div>
+                            <div class="stat-title text-green-600">Lượt tải</div>
+                            <div class="stat-value text-green-700" x-text="document.downloads"></div>
+                        </div>
+                        <div class="stat bg-purple-50 rounded-lg">
+                            <div class="stat-figure text-purple-500">
+                                <i class="fas fa-star text-2xl"></i>
+                            </div>
+                            <div class="stat-title text-purple-600">Đánh giá</div>
+                            <div class="stat-value text-purple-700" x-text="document.rating"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-comments mr-2"></i>Bình luận (<span x-text="comments.length"></span>)
+                    </h3>
+
+                    <!-- Add Comment -->
+                    <div class="mb-6">
+                        <div class="flex items-start space-x-3">
+                            <div class="avatar">
+                                <div class="w-10 rounded-full bg-blue-100">
+                                    <i class="fas fa-user text-blue-600 text-lg flex items-center justify-center h-full"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <textarea 
+                                    class="textarea textarea-bordered w-full" 
+                                    placeholder="Viết bình luận của bạn..."
+                                    x-model="newComment"
+                                    rows="3"
+                                ></textarea>
+                                <div class="flex justify-end mt-2">
+                                    <button class="btn btn-primary btn-sm" @click="addComment()">
+                                        <i class="fas fa-paper-plane mr-1"></i>Gửi
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments List -->
+                    <div class="space-y-4">
+                        <template x-for="comment in comments" :key="comment.id">
+                            <div class="flex items-start space-x-3 p-4 bg-gray-50 rounded-lg">
+                                <div class="avatar">
+                                    <div class="w-10 rounded-full bg-gray-200">
+                                        <i class="fas fa-user text-gray-600 text-lg flex items-center justify-center h-full"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="font-medium text-gray-800" x-text="comment.author"></span>
+                                        <span class="text-sm text-gray-500" x-text="comment.date"></span>
+                                        <span class="badge badge-xs" :class="comment.role === 'teacher' ? 'badge-primary' : 'badge-secondary'" x-text="comment.role === 'teacher' ? 'Giáo viên' : 'Học sinh'"></span>
+                                    </div>
+                                    <p class="text-gray-700" x-text="comment.content"></p>
+                                    <div class="flex items-center space-x-4 mt-2">
+                                        <button class="text-sm text-gray-500 hover:text-blue-600">
+                                            <i class="fas fa-thumbs-up mr-1"></i>Thích (<span x-text="comment.likes"></span>)
+                                        </button>
+                                        <button class="text-sm text-gray-500 hover:text-blue-600">
+                                            <i class="fas fa-reply mr-1"></i>Trả lời
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Related Documents -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-file-alt mr-2"></i>Tài liệu liên quan
+                    </h3>
+                    <div class="space-y-3">
+                        <template x-for="related in relatedDocuments" :key="related.id">
+                            <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors">
+                                <div class="w-12 h-12 bg-white rounded flex items-center justify-center">
+                                    <i :class="getFileIcon(related.type)" class="text-xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm text-gray-800" x-text="related.title"></p>
+                                    <p class="text-xs text-gray-500">Lớp <span x-text="related.class"></span> • <span x-text="related.downloads"></span> lượt tải</p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Document Actions -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-cog mr-2"></i>Thao tác
+                    </h3>
+                    <div class="space-y-2">
+                        <button class="btn btn-outline btn-primary w-full justify-start">
+                            <i class="fas fa-edit mr-2"></i>Chỉnh sửa tài liệu
+                        </button>
+                        <button class="btn btn-outline btn-secondary w-full justify-start">
+                            <i class="fas fa-copy mr-2"></i>Sao chép liên kết
+                        </button>
+                        <button class="btn btn-outline btn-accent w-full justify-start">
+                            <i class="fas fa-share mr-2"></i>Chia sẻ
+                        </button>
+                        <button class="btn btn-outline btn-warning w-full justify-start">
+                            <i class="fas fa-archive mr-2"></i>Lưu trữ
+                        </button>
+                        <button class="btn btn-outline btn-error w-full justify-start">
+                            <i class="fas fa-trash mr-2"></i>Xóa tài liệu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function documentDetail() {
+            return {
+                newComment: '',
+                document: {
+                    id: 1,
+                    title: 'Bài tập Toán lớp 3 - Phép cộng có nhớ',
+                    description: 'Tập hợp các bài tập về phép cộng có nhớ dành cho học sinh lớp 3. Bao gồm 50 bài tập từ cơ bản đến nâng cao, có đáp án chi tiết.',
+                    class: '3',
+                    subject: 'Toán học',
+                    type: 'pdf',
+                    uploadDate: '15/12/2024',
+                    downloads: 45,
+                    comments: 8,
+                    views: 156,
+                    rating: '4.8',
+                    fileSize: '2.5 MB'
+                },
+                comments: [
+                    {
+                        id: 1,
+                        author: 'Cô Minh Anh',
+                        role: 'teacher',
+                        date: '2 giờ trước',
+                        content: 'Tài liệu rất hữu ích cho các em học sinh lớp 3. Các bài tập được sắp xếp từ dễ đến khó một cách khoa học.',
+                        likes: 5
+                    },
+                    {
+                        id: 2,
+                        author: 'Phụ huynh Lan Anh',
+                        role: 'parent',
+                        date: '1 ngày trước',
+                        content: 'Con em làm bài tập này rất thích, các bài tập dễ hiểu và có hình ảnh minh họa đẹp.',
+                        likes: 3
+                    },
+                    {
+                        id: 3,
+                        author: 'Thầy Văn Nam',
+                        role: 'teacher',
+                        date: '2 ngày trước',
+                        content: 'Chất lượng tài liệu tốt, phù hợp với chương trình học. Cảm ơn tác giả đã chia sẻ.',
+                        likes: 7
+                    }
+                ],
+                relatedDocuments: [
+                    {
+                        id: 2,
+                        title: 'Bài tập Toán lớp 3 - Phép trừ có nhớ',
+                        class: '3',
+                        type: 'pdf',
+                        downloads: 38
+                    },
+                    {
+                        id: 3,
+                        title: 'Video bài giảng: Phép cộng có nhớ',
+                        class: '3',
+                        type: 'video',
+                        downloads: 67
+                    },
+                    {
+                        id: 4,
+                        title: 'Đề kiểm tra Toán lớp 3 - Học kì 1',
+                        class: '3',
+                        type: 'doc',
+                        downloads: 89
+                    }
+                ],
+
+                getFileIcon(type) {
+                    const icons = {
+                        'pdf': 'fas fa-file-pdf text-red-500',
+                        'doc': 'fas fa-file-word text-blue-500',
+                        'ppt': 'fas fa-file-powerpoint text-orange-500',
+                        'video': 'fas fa-file-video text-purple-500'
+                    };
+                    return icons[type] || 'fas fa-file text-gray-500';
+                },
+
+                addComment() {
+                    if (this.newComment.trim()) {
+                        const comment = {
+                            id: this.comments.length + 1,
+                            author: 'Bạn',
+                            role: 'teacher',
+                            date: 'Vừa xong',
+                            content: this.newComment,
+                            likes: 0
+                        };
+                        this.comments.unshift(comment);
+                        this.newComment = '';
+                        
+                        // Show success message
+                        const toast = document.createElement('div');
+                        toast.className = 'toast toast-top toast-end';
+                        toast.innerHTML = `
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Đã thêm bình luận!</span>
+                            </div>
+                        `;
+                        document.body.appendChild(toast);
+                        setTimeout(() => toast.remove(), 3000);
+                    }
+                }
+            }
+        }
+
+        // Initialize animations
+        $(document).ready(function() {
+            gsap.from('.bg-white', {
+                duration: 0.6,
+                y: 30,
+                opacity: 0,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        });
+    </script>
+</body>
+</html>

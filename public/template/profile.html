@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin cá nhân - Hệ thống Giáo dục</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div class="container mx-auto px-4 py-8" x-data="profileData()">
+        <!-- Header -->
+        <div class="navbar bg-white rounded-lg shadow-lg mb-8">
+            <div class="navbar-start">
+                <a href="index.html" class="btn btn-ghost">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Trang chủ
+                </a>
+            </div>
+            <div class="navbar-center">
+                <h1 class="text-xl font-bold">Thông tin cá nhân</h1>
+            </div>
+            <div class="navbar-end">
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                        <div class="w-10 rounded-full">
+                            <img :src="user.avatar" :alt="user.fullName" />
+                        </div>
+                    </div>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><a @click="logout"><i class="fas fa-sign-out-alt mr-2"></i>Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Profile Card -->
+            <div class="lg:col-span-1">
+                <div class="card bg-white shadow-xl">
+                    <div class="card-body text-center">
+                        <div class="avatar mb-4">
+                            <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                <img :src="user.avatar" :alt="user.fullName" />
+                            </div>
+                        </div>
+                        <h2 class="card-title justify-center text-2xl" x-text="user.fullName"></h2>
+                        <div class="badge badge-lg" :class="user.role === 'teacher' ? 'badge-primary' : 'badge-secondary'">
+                            <i :class="user.role === 'teacher' ? 'fas fa-chalkboard-teacher' : 'fas fa-user-graduate'" class="mr-2"></i>
+                            <span x-text="user.role === 'teacher' ? 'Giáo viên' : 'Học sinh'"></span>
+                        </div>
+                        <p class="text-gray-600 mt-2" x-text="user.email"></p>
+                        
+                        <!-- Role-specific info -->
+                        <div class="mt-4 space-y-2">
+                            <template x-if="user.role === 'student'">
+                                <div>
+                                    <div class="stat">
+                                        <div class="stat-title">Lớp học</div>
+                                        <div class="stat-value text-lg" x-text="user.class"></div>
+                                    </div>
+                                </div>
+                            </template>
+                            
+                            <template x-if="user.role === 'teacher'">
+                                <div>
+                                    <div class="stat">
+                                        <div class="stat-title">Môn giảng dạy</div>
+                                        <div class="stat-value text-lg" x-text="user.subject"></div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <button class="btn btn-primary mt-4" @click="editMode = !editMode">
+                            <i class="fas fa-edit mr-2"></i>
+                            Chỉnh sửa thông tin
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="card bg-white shadow-xl mt-6">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            Thống kê
+                        </h3>
+                        <div class="stats stats-vertical">
+                            <template x-if="user.role === 'student'">
+                                <div>
+                                    <div class="stat">
+                                        <div class="stat-title">Bài học đã hoàn thành</div>
+                                        <div class="stat-value text-primary" x-text="user.stats.completedLessons"></div>
+                                    </div>
+                                    <div class="stat">
+                                        <div class="stat-title">Điểm trung bình</div>
+                                        <div class="stat-value text-secondary" x-text="user.stats.averageScore"></div>
+                                    </div>
+                                    <div class="stat">
+                                        <div class="stat-title">Bài kiểm tra đã làm</div>
+                                        <div class="stat-value text-accent" x-text="user.stats.testsCompleted"></div>
+                                    </div>
+                                </div>
+                            </template>
+                            
+                            <template x-if="user.role === 'teacher'">
+                                <div>
+                                    <div class="stat">
+                                        <div class="stat-title">Tài liệu đã tải lên</div>
+                                        <div class="stat-value text-primary" x-text="user.stats.documentsUploaded"></div>
+                                    </div>
+                                    <div class="stat">
+                                        <div class="stat-title">Học sinh</div>
+                                        <div class="stat-value text-secondary" x-text="user.stats.students"></div>
+                                    </div>
+                                    <div class="stat">
+                                        <div class="stat-title">Lớp học</div>
+                                        <div class="stat-value text-accent" x-text="user.stats.classes"></div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-2">
+                <!-- Edit Form -->
+                <div x-show="editMode" x-transition class="card bg-white shadow-xl mb-6">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-user-edit mr-2"></i>
+                            Chỉnh sửa thông tin
+                        </h3>
+                        <form @submit.prevent="updateProfile">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">Họ và tên</span>
+                                    </label>
+                                    <input type="text" class="input input-bordered" x-model="editForm.fullName">
+                                </div>
+                                
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">Email</span>
+                                    </label>
+                                    <input type="email" class="input input-bordered" x-model="editForm.email">
+                                </div>
+                                
+                                <div class="form-control">
+                                    <label class="label">
+                                        <span class="label-text">Số điện thoại</span>
+                                    </label>
+                                    <input type="tel" class="input input-bordered" x-model="editForm.phone">
+                                </div>
+                                
+                                <template x-if="user.role === 'student'">
+                                    <div class="form-control">
+                                        <label class="label">
+                                            <span class="label-text">Lớp học</span>
+                                        </label>
+                                        <select class="select select-bordered" x-model="editForm.class">
+                                            <option value="Lớp 1">Lớp 1</option>
+                                            <option value="Lớp 2">Lớp 2</option>
+                                            <option value="Lớp 3">Lớp 3</option>
+                                            <option value="Lớp 4">Lớp 4</option>
+                                            <option value="Lớp 5">Lớp 5</option>
+                                        </select>
+                                    </div>
+                                </template>
+                                
+                                <template x-if="user.role === 'teacher'">
+                                    <div class="form-control">
+                                        <label class="label">
+                                            <span class="label-text">Môn giảng dạy</span>
+                                        </label>
+                                        <input type="text" class="input input-bordered" x-model="editForm.subject">
+                                    </div>
+                                </template>
+                            </div>
+                            
+                            <div class="form-control mt-4">
+                                <label class="label">
+                                    <span class="label-text">Giới thiệu bản thân</span>
+                                </label>
+                                <textarea class="textarea textarea-bordered h-24" x-model="editForm.bio" placeholder="Viết vài dòng giới thiệu về bản thân..."></textarea>
+                            </div>
+                            
+                            <div class="card-actions justify-end mt-6">
+                                <button type="button" class="btn btn-ghost" @click="editMode = false">Hủy</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save mr-2"></i>
+                                    Lưu thay đổi
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card bg-white shadow-xl">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-history mr-2"></i>
+                            Hoạt động gần đây
+                        </h3>
+                        <div class="space-y-4">
+                            <template x-for="activity in recentActivities" :key="activity.id">
+                                <div class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+                                    <div class="avatar">
+                                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                                            <i :class="activity.icon" class="text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium" x-text="activity.title"></p>
+                                        <p class="text-sm text-gray-600" x-text="activity.description"></p>
+                                        <p class="text-xs text-gray-500" x-text="activity.time"></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function profileData() {
+            return {
+                editMode: false,
+                user: {
+                    fullName: 'Nguyễn Văn An',
+                    email: 'nguyenvanan@email.com',
+                    phone: '0123456789',
+                    role: 'student', // or 'teacher'
+                    class: 'Lớp 3',
+                    subject: 'Toán học',
+                    avatar: '/placeholder.svg?height=100&width=100',
+                    bio: 'Học sinh năng động, yêu thích toán học và khoa học.',
+                    stats: {
+                        completedLessons: 45,
+                        averageScore: 8.5,
+                        testsCompleted: 23,
+                        documentsUploaded: 12,
+                        students: 150,
+                        classes: 5
+                    }
+                },
+                editForm: {},
+                recentActivities: [
+                    {
+                        id: 1,
+                        icon: 'fas fa-book-open',
+                        title: 'Hoàn thành bài học',
+                        description: 'Bài 5: Phép cộng trong phạm vi 100',
+                        time: '2 giờ trước'
+                    },
+                    {
+                        id: 2,
+                        icon: 'fas fa-trophy',
+                        title: 'Đạt điểm cao',
+                        description: 'Bài kiểm tra Toán học - Điểm: 9.5',
+                        time: '1 ngày trước'
+                    },
+                    {
+                        id: 3,
+                        icon: 'fas fa-comment',
+                        title: 'Bình luận mới',
+                        description: 'Đã bình luận về tài liệu "Bảng cửu chương"',
+                        time: '2 ngày trước'
+                    }
+                ],
+                
+                init() {
+                    this.editForm = { ...this.user };
+                    // Update activities based on role
+                    if (this.user.role === 'teacher') {
+                        this.recentActivities = [
+                            {
+                                id: 1,
+                                icon: 'fas fa-upload',
+                                title: 'Tải lên tài liệu',
+                                description: 'Bài giảng: Phép nhân và phép chia',
+                                time: '1 giờ trước'
+                            },
+                            {
+                                id: 2,
+                                icon: 'fas fa-users',
+                                title: 'Học sinh mới',
+                                description: '5 học sinh mới tham gia lớp',
+                                time: '3 giờ trước'
+                            },
+                            {
+                                id: 3,
+                                icon: 'fas fa-chart-line',
+                                title: 'Báo cáo tiến độ',
+                                description: 'Xem báo cáo tiến độ học tập lớp 3A',
+                                time: '1 ngày trước'
+                            }
+                        ];
+                    }
+                },
+                
+                updateProfile() {
+                    this.user = { ...this.editForm };
+                    this.editMode = false;
+                    this.showSuccess('Cập nhật thông tin thành công!');
+                },
+                
+                logout() {
+                    this.showInfo('Đang đăng xuất...');
+                    setTimeout(() => {
+                        window.location.href = 'auth.html';
+                    }, 1500);
+                },
+                
+                showSuccess(message) {
+                    this.showToast(message, 'success');
+                },
+                
+                showInfo(message) {
+                    this.showToast(message, 'info');
+                },
+                
+                showToast(message, type) {
+                    const toast = document.createElement('div');
+                    toast.className = `alert alert-${type} fixed top-4 right-4 w-auto z-50`;
+                    toast.innerHTML = `<span>${message}</span>`;
+                    document.body.appendChild(toast);
+                    
+                    gsap.fromTo(toast, 
+                        { x: 300, opacity: 0 }, 
+                        { x: 0, opacity: 1, duration: 0.3 }
+                    );
+                    
+                    setTimeout(() => {
+                        gsap.to(toast, {
+                            x: 300,
+                            opacity: 0,
+                            duration: 0.3,
+                            onComplete: () => toast.remove()
+                        });
+                    }, 3000);
+                }
+            }
+        }
+
+        // GSAP animations
+        gsap.from(".card", { y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" });
+        gsap.from(".navbar", { y: -50, opacity: 0, duration: 0.5, ease: "power2.out" });
+    </script>
+</body>
+</html>

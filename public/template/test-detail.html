@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài kiểm tra - EduFun</title>
+    
+    <!-- TailwindCSS + DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-bounce-gentle {
+            animation: bounce-gentle 2s ease-in-out infinite;
+        }
+        
+        .animate-wiggle {
+            animation: wiggle 1s ease-in-out infinite;
+        }
+        
+        .hover-bounce:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #fef3c7 100%);
+        }
+        
+        .timer-warning {
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .question-card {
+            transition: all 0.3s ease;
+        }
+        
+        .question-card.active {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .option-card {
+            transition: all 0.2s ease;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .option-card.selected {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        
+        .option-card.correct {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .option-card.incorrect {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <!-- Header -->
+    <header class="navbar bg-white/80 backdrop-blur-sm border-b-2 border-blue-200 sticky top-0 z-50">
+        <div class="navbar-start">
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center animate-bounce-gentle">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </a>
+                <div>
+                    <h1 class="text-2xl font-bold text-primary">EduFun</h1>
+                    <p class="text-sm text-gray-600" x-text="testInfo.name">Bài kiểm tra</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="navbar-center hidden lg:flex">
+            <div class="breadcrumbs text-sm">
+                <ul>
+                    <li><a href="index.html" class="text-primary hover:text-secondary">Trang chủ</a></li>
+                    <li><a href="lesson-detail.html" class="text-primary hover:text-secondary">Bài học</a></li>
+                    <li class="text-gray-500">Bài kiểm tra</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="navbar-end">
+            <div class="flex items-center space-x-4">
+                <!-- Timer -->
+                <div class="flex items-center space-x-2 bg-white rounded-lg px-3 py-2 shadow-sm" 
+                     x-data="{ timeLeft: 600 }" 
+                     x-init="
+                        setInterval(() => {
+                            if (timeLeft > 0) timeLeft--;
+                            if (timeLeft <= 60) $el.classList.add('timer-warning');
+                        }, 1000)
+                     ">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <span class="font-mono font-bold" 
+                          :class="timeLeft <= 60 ? 'text-red-500' : 'text-blue-600'"
+                          x-text="Math.floor(timeLeft/60) + ':' + (timeLeft%60).toString().padStart(2, '0')">
+                    </span>
+                </div>
+                
+                <a href="lesson-detail.html" class="btn btn-ghost">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Quay lại
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Test Interface -->
+    <div class="container mx-auto px-4 py-8" x-data="{
+        selectedAnswers: {},
+        showResults: false,
+        score: 0,
+        timeLeft: 600,
+        testInfo: {
+            name: 'Kiểm tra cơ bản',
+            description: 'Kiểm tra hiểu biết cơ bản về số và chữ số',
+            difficulty: 'Dễ'
+        },
+        questions: [
+            {
+                id: 1,
+                question: 'Có bao nhiêu chữ số trong hệ thập phân?',
+                options: ['8 chữ số', '9 chữ số', '10 chữ số', '11 chữ số'],
+                correct: 2,
+                explanation: 'Hệ thập phân có 10 chữ số: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9',
+                points: 20
+            },
+            {
+                id: 2,
+                question: 'Số 347 có bao nhiêu chữ số?',
+                options: ['1 chữ số', '2 chữ số', '3 chữ số', '4 chữ số'],
+                correct: 2,
+                explanation: 'Số 347 có 3 chữ số: 3, 4 và 7',
+                points: 20
+            },
+            {
+                id: 3,
+                question: 'Chữ số lớn nhất trong hệ thập phân là gì?',
+                options: ['8', '9', '10', '11'],
+                correct: 1,
+                explanation: 'Chữ số lớn nhất trong hệ thập phân là 9',
+                points: 20
+            },
+            {
+                id: 4,
+                question: 'Trong số 205, chữ số 0 ở vị trí nào?',
+                options: ['Hàng trăm', 'Hàng chục', 'Hàng đơn vị', 'Không có'],
+                correct: 1,
+                explanation: 'Trong số 205, chữ số 0 ở vị trí hàng chục',
+                points: 20
+            },
+            {
+                id: 5,
+                question: 'Số nhỏ nhất có 2 chữ số là gì?',
+                options: ['01', '10', '11', '00'],
+                correct: 1,
+                explanation: 'Số nhỏ nhất có 2 chữ số là 10',
+                points: 20
+            }
+        ],
+        
+        selectAnswer(questionIndex, answerIndex) {
+            this.selectedAnswers[questionIndex] = answerIndex;
+        },
+        
+        submitTest() {
+            this.score = 0;
+            this.questions.forEach((question, index) => {
+                if (this.selectedAnswers[index] === question.correct) {
+                    this.score += question.points;
+                }
+            });
+            this.showResults = true;
+            
+            // Celebration animation
+            this.celebrateCompletion();
+        },
+        
+        celebrateCompletion() {
+            // Confetti animation will be handled by GSAP
+            setTimeout(() => {
+                for (let i = 0; i < 50; i++) {
+                    this.createConfetti();
+                }
+            }, 500);
+        },
+        
+        createConfetti() {
+            const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+            const confetti = document.createElement('div');
+            confetti.className = 'fixed w-3 h-3 rounded-full pointer-events-none z-50';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.appendChild(confetti);
+            
+            gsap.set(confetti, {
+                x: Math.random() * window.innerWidth,
+                y: -20
+            });
+            
+            gsap.to(confetti, {
+                duration: 3 + Math.random() * 2,
+                y: window.innerHeight + 20,
+                x: '+=' + (Math.random() - 0.5) * 200,
+                rotation: Math.random() * 360,
+                ease: 'power2.out',
+                onComplete: () => confetti.remove()
+            });
+        }
+    }">
+        
+        <!-- Test Progress -->
+        <div class="card bg-white shadow-xl mb-6">
+            <div class="card-body p-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold" x-text="testInfo.name"></h2>
+                    <div class="badge badge-primary" x-text="testInfo.difficulty"></div>
+                </div>
+                
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm text-gray-600">
+                        Tổng số câu hỏi: <span x-text="questions.length"></span>
+                    </span>
+                    <span class="text-sm font-semibold text-primary">
+                        Đã trả lời: <span x-text="Object.keys(selectedAnswers).length"></span>/<span x-text="questions.length"></span>
+                    </span>
+                </div>
+                
+                <!-- Updated progress calculation to show completion percentage -->
+                <progress class="progress progress-primary w-full" 
+                         :value="Object.keys(selectedAnswers).length / questions.length * 100" 
+                         max="100"></progress>
+            </div>
+        </div>
+
+        <!-- Display all questions at once instead of one by one -->
+        <div x-show="!showResults" class="space-y-6">
+            <template x-for="(question, questionIndex) in questions" :key="questionIndex">
+                <div class="card bg-white shadow-xl">
+                    <div class="card-body">
+                        <div class="flex items-start justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-primary">
+                                Câu <span x-text="questionIndex + 1"></span>
+                            </h3>
+                            <div class="badge badge-secondary" x-text="question.points + ' điểm'"></div>
+                        </div>
+                        
+                        <p class="text-lg text-gray-800 mb-6 leading-relaxed" x-text="question.question"></p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <template x-for="(option, optionIndex) in question.options" :key="optionIndex">
+                                <!-- Removed hover animations and simplified styling -->
+                                <div class="p-4 border-2 rounded-lg cursor-pointer transition-colors duration-200"
+                                     :class="selectedAnswers[questionIndex] === optionIndex ? 'selected border-primary bg-blue-50' : 'border-gray-200 hover:border-primary'"
+                                     @click="selectAnswer(questionIndex, optionIndex)">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full border-2 mr-3 flex items-center justify-center font-bold text-lg transition-colors duration-200"
+                                             :class="selectedAnswers[questionIndex] === optionIndex ? 'bg-primary border-primary text-white' : 'border-gray-300 text-gray-600'">
+                                            <span x-text="String.fromCharCode(65 + optionIndex)"></span>
+                                        </div>
+                                        <span class="text-lg" x-text="option"></span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            
+            <!-- Simplified submit button section -->
+            <div class="flex justify-center">
+                <button class="btn btn-success btn-lg" 
+                        x-show="Object.keys(selectedAnswers).length === questions.length" 
+                        @click="submitTest()">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Nộp bài
+                </button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div x-show="showResults">
+            <div class="card bg-white shadow-xl">
+                <div class="card-body text-center">
+                    <div class="text-8xl mb-6" x-text="score >= 80 ? '🎉' : score >= 60 ? '😊' : score >= 40 ? '😐' : '😔'"></div>
+                    
+                    <h2 class="text-4xl font-bold mb-4" 
+                        :class="score >= 80 ? 'text-green-600' : score >= 60 ? 'text-blue-600' : score >= 40 ? 'text-yellow-600' : 'text-red-600'"
+                        x-text="score >= 80 ? 'Xuất sắc!' : score >= 60 ? 'Khá tốt!' : score >= 40 ? 'Cần cố gắng!' : 'Hãy học lại!'">
+                    </h2>
+                    
+                    <div class="text-6xl font-bold text-primary mb-4" x-text="score + '/100 điểm'"></div>
+                    
+                    <p class="text-xl text-gray-600 mb-8" 
+                       x-text="score >= 80 ? 'Bạn đã nắm vững kiến thức!' : score >= 60 ? 'Bạn hiểu khá tốt bài học!' : score >= 40 ? 'Bạn cần ôn tập thêm!' : 'Hãy xem lại video bài giảng!'">
+                    </p>
+                    
+                    <!-- Detailed Results -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div class="stat bg-blue-100 rounded-lg">
+                            <div class="stat-title text-blue-600">Tổng câu hỏi</div>
+                            <div class="stat-value text-blue-700" x-text="questions.length"></div>
+                        </div>
+                        <div class="stat bg-green-100 rounded-lg">
+                            <div class="stat-title text-green-600">Trả lời đúng</div>
+                            <div class="stat-value text-green-700" x-text="Math.round(score/20)"></div>
+                        </div>
+                        <div class="stat bg-red-100 rounded-lg">
+                            <div class="stat-title text-red-600">Trả lời sai</div>
+                            <div class="stat-value text-red-700" x-text="questions.length - Math.round(score/20)"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col md:flex-row gap-4 justify-center">
+                        <button class="btn btn-outline btn-lg" @click="location.reload()">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            Làm lại
+                        </button>
+                        
+                        <a href="lesson-detail.html" class="btn btn-primary btn-lg">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            Quay lại bài học
+                        </a>
+                        
+                        <button class="btn btn-success btn-lg" x-show="score >= 60">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                            Bài học tiếp theo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-gradient-to-r from-blue-400 to-blue-600 text-white mt-16">
+        <div class="grid grid-flow-col gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h4 class="text-2xl font-bold">EduFun - Bài kiểm tra</h4>
+            </div>
+        </div>
+        <div class="grid grid-flow-col gap-4">
+            <a href="index.html" class="link link-hover">Trang chủ</a>
+            <a href="lesson-detail.html" class="link link-hover">Bài học</a>
+            <a class="link link-hover">Liên hệ</a>
+        </div>
+        <div>
+            <p>&copy; 2024 EduFun. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP Animations -->
+    <script>
+        $(document).ready(function() {
+            // Simplified animations - only animate cards on load
+            gsap.from(".card", {duration: 0.8, y: 30, opacity: 0, stagger: 0.1, ease: "power2.out"});
+            
+            // Simple button click feedback
+            $('.btn').on('click', function() {
+                gsap.to(this, {duration: 0.1, scale: 0.95, yoyo: true, repeat: 1});
+            });
+        });
+    </script>
+</body>
+</html>
