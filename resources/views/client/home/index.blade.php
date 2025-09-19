@@ -1,77 +1,5 @@
-<!DOCTYPE html>
-<html lang="vi" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NghienCuuKhoaHoc - Học tập vui vẻ cùng bạn bè!</title>
-    
-    <!-- TailwindCSS + DaisyUI -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
-
-    <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="{{ asset('assets/libs/style.css') }}">
-</head>
-<body class="gradient-bg ">
-    <!-- Header -->
-    <header class="navbar bg-white/90 backdrop-blur-sm border-b-2 border-gray-100 sticky top-0 z-50">
-        <div class="navbar-start">
-            <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full flex items-center justify-center animate-bounce-gentle">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-bold text-primary">NghienCuuKhoaHoc</h1>
-                    <p class="text-sm text-gray-600">Học tập vui vẻ cùng bạn bè!</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1 gap-4">
-                <li><a class="btn btn-ghost text-lg font-medium hover-bounce">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                    Lớp học
-                </a></li>
-                <li><a class="btn btn-ghost text-lg font-medium hover-bounce">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                    Môn học
-                </a></li>
-                <li><a class="btn btn-ghost text-lg font-medium hover-bounce">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                    </svg>
-                    Trắc nghiệm
-                </a></li>
-            </ul>
-        </div>
-        
-        <div class="navbar-end">
-            <a class="btn btn-secondary text-lg font-medium hover-bounce">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                </svg>
-                Đăng nhập
-            </a>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
+@extends('client.app')
+@section('content')
     <section class="hero min-h-screen gradient-bg-partern">
         <div class="hero-content text-center">
             <div class="max-w-4xl">
@@ -79,18 +7,23 @@
                     Chào mừng đến với NghienCuuKhoaHoc! 🎉
                 </h2>
                 <p class="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-                    Nơi học tập trở nên thú vị và bổ ích cho các em học sinh. Khám phá thế giới kiến thức qua các bài học sinh động và trò chơi giáo dục!
+                    Nơi học tập trở nên thú vị và bổ ích cho các em học sinh. Khám phá thế giới kiến thức qua các bài học
+                    sinh động và trò chơi giáo dục!
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <button class="btn btn-secondary btn-lg text-xl px-8 py-4 hover-bounce">
                         <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                clip-rule="evenodd"></path>
                         </svg>
                         Bắt đầu học ngay
                     </button>
                     <button class="btn btn-outline btn-lg text-xl px-8 py-4 hover-bounce">
                         <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
                         </svg>
                         Xem tài liệu
                     </button>
@@ -107,24 +40,30 @@
                 <p class="text-xl text-gray-700">Chọn lớp học phù hợp với độ tuổi của bạn</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" x-data="{ classes: [
-                { grade: 'Lớp 1', color: 'bg-red-100 border-red-200', icon: '🌟', students: 245 },
-                { grade: 'Lớp 2', color: 'bg-blue-100 border-blue-200', icon: '🚀', students: 198 },
-                { grade: 'Lớp 3', color: 'bg-green-100 border-green-200', icon: '🎨', students: 167 },
-                { grade: 'Lớp 4', color: 'bg-purple-100 border-purple-200', icon: '🏆', students: 203 },
-                { grade: 'Lớp 5', color: 'bg-pink-100 border-pink-200', icon: '🎯', students: 189 },
-                { grade: 'Lớp 6', color: 'bg-indigo-100 border-indigo-200', icon: '🔬', students: 156 },
-                { grade: 'Lớp 7', color: 'bg-yellow-100 border-yellow-200', icon: '📐', students: 134 },
-                { grade: 'Lớp 8', color: 'bg-cyan-100 border-cyan-200', icon: '🌍', students: 178 }
-            ] }">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" x-data="{
+                classes: [
+                    { grade: 'Lớp 1', color: 'bg-red-100 border-red-200', icon: '🌟', students: 245 },
+                    { grade: 'Lớp 2', color: 'bg-blue-100 border-blue-200', icon: '🚀', students: 198 },
+                    { grade: 'Lớp 3', color: 'bg-green-100 border-green-200', icon: '🎨', students: 167 },
+                    { grade: 'Lớp 4', color: 'bg-purple-100 border-purple-200', icon: '🏆', students: 203 },
+                    { grade: 'Lớp 5', color: 'bg-pink-100 border-pink-200', icon: '🎯', students: 189 },
+                    { grade: 'Lớp 6', color: 'bg-indigo-100 border-indigo-200', icon: '🔬', students: 156 },
+                    { grade: 'Lớp 7', color: 'bg-yellow-100 border-yellow-200', icon: '📐', students: 134 },
+                    { grade: 'Lớp 8', color: 'bg-cyan-100 border-cyan-200', icon: '🌍', students: 178 }
+                ]
+            }">
                 <template x-for="(classItem, index) in classes" :key="index">
-                    <div class="card border-2 hover:scale-105 transition-all duration-300 cursor-pointer hover-bounce" :class="classItem.color">
+                    <div class="card border-2 hover:scale-105 transition-all duration-300 cursor-pointer hover-bounce"
+                        :class="classItem.color">
                         <div class="card-body text-center">
                             <div class="text-4xl mb-2" x-text="classItem.icon"></div>
-                            <h2 class="card-title text-2xl font-bold text-primary justify-center" x-text="classItem.grade"></h2>
+                            <h2 class="card-title text-2xl font-bold text-primary justify-center" x-text="classItem.grade">
+                            </h2>
                             <div class="flex items-center justify-center space-x-2 mb-3">
                                 <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                    </path>
                                 </svg>
                                 <span class="text-sm font-medium" x-text="classItem.students + ' học sinh'"></span>
                             </div>
@@ -146,27 +85,34 @@
                 <p class="text-xl text-gray-700">Khám phá các môn học thú vị và bổ ích</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" x-data="{ subjects: [
-                { subject: 'Toán học', icon: '🔢', description: 'Học toán vui vẻ với các bài tập thú vị', lessons: 45, color: 'from-blue-400 to-blue-600' },
-                { subject: 'Tiếng Việt', icon: '📝', description: 'Rèn luyện kỹ năng đọc viết tiếng Việt', lessons: 38, color: 'from-green-400 to-green-600' },
-                { subject: 'Tiếng Anh', icon: '🌍', description: 'Học tiếng Anh qua trò chơi và bài hát', lessons: 32, color: 'from-purple-400 to-purple-600' },
-                { subject: 'Khoa học', icon: '🔬', description: 'Khám phá thế giới xung quanh qua thí nghiệm', lessons: 28, color: 'from-orange-400 to-orange-600' },
-                { subject: 'Lịch sử', icon: '🏛️', description: 'Tìm hiểu lịch sử dân tộc qua câu chuyện', lessons: 25, color: 'from-red-400 to-red-600' },
-                { subject: 'Địa lý', icon: '🗺️', description: 'Khám phá thế giới qua bản đồ tương tác', lessons: 22, color: 'from-cyan-400 to-cyan-600' }
-            ] }">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" x-data="{
+                subjects: [
+                    { subject: 'Toán học', icon: '🔢', description: 'Học toán vui vẻ với các bài tập thú vị', lessons: 45, color: 'from-blue-400 to-blue-600' },
+                    { subject: 'Tiếng Việt', icon: '📝', description: 'Rèn luyện kỹ năng đọc viết tiếng Việt', lessons: 38, color: 'from-green-400 to-green-600' },
+                    { subject: 'Tiếng Anh', icon: '🌍', description: 'Học tiếng Anh qua trò chơi và bài hát', lessons: 32, color: 'from-purple-400 to-purple-600' },
+                    { subject: 'Khoa học', icon: '🔬', description: 'Khám phá thế giới xung quanh qua thí nghiệm', lessons: 28, color: 'from-orange-400 to-orange-600' },
+                    { subject: 'Lịch sử', icon: '🏛️', description: 'Tìm hiểu lịch sử dân tộc qua câu chuyện', lessons: 25, color: 'from-red-400 to-red-600' },
+                    { subject: 'Địa lý', icon: '🗺️', description: 'Khám phá thế giới qua bản đồ tương tác', lessons: 22, color: 'from-cyan-400 to-cyan-600' }
+                ]
+            }">
                 <template x-for="(subject, index) in subjects" :key="index">
-                    <div class="card bg-base-100 shadow-xl border-2 hover:shadow-2xl transition-all duration-300 cursor-pointer hover-bounce overflow-hidden">
+                    <div
+                        class="card bg-base-100 shadow-xl border-2 hover:shadow-2xl transition-all duration-300 cursor-pointer hover-bounce overflow-hidden">
                         <div class="h-2 bg-gradient-to-r" :class="subject.color"></div>
                         <div class="card-body text-center">
-                            <div class="text-5xl mb-3 animate-float" x-text="subject.icon" :style="'animation-delay: ' + (index * 0.2) + 's'"></div>
-                            <h2 class="card-title text-2xl font-bold text-primary justify-center" x-text="subject.subject"></h2>
+                            <div class="text-5xl mb-3 animate-float" x-text="subject.icon"
+                                :style="'animation-delay: ' + (index * 0.2) + 's'"></div>
+                            <h2 class="card-title text-2xl font-bold text-primary justify-center" x-text="subject.subject">
+                            </h2>
                             <p class="text-base text-gray-600" x-text="subject.description"></p>
                             <div class="flex items-center justify-between mb-4">
                                 <div class="badge badge-secondary text-sm" x-text="subject.lessons + ' bài học'"></div>
                                 <div class="flex items-center space-x-1">
                                     <template x-for="i in 5" :key="i">
                                         <svg class="w-4 h-4 fill-yellow-400 text-yellow-400" viewBox="0 0 20 20">
-                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
                                         </svg>
                                     </template>
                                 </div>
@@ -174,7 +120,9 @@
                             <div class="card-actions justify-center">
                                 <button class="btn btn-secondary w-full">
                                     <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                            clip-rule="evenodd"></path>
                                     </svg>
                                     Bắt đầu học
                                 </button>
@@ -194,22 +142,31 @@
                 <p class="text-xl text-gray-700">Kiểm tra kiến thức qua các câu hỏi thú vị</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" x-data="{ quizzes: [
-                { title: 'Toán cơ bản', questions: 20, time: '15 phút', difficulty: 'Dễ', color: 'bg-green-100' },
-                { title: 'Tiếng Việt lớp 3', questions: 15, time: '12 phút', difficulty: 'Trung bình', color: 'bg-yellow-100' },
-                { title: 'Khoa học tự nhiên', questions: 25, time: '20 phút', difficulty: 'Khó', color: 'bg-red-100' },
-                { title: 'Tiếng Anh cơ bản', questions: 18, time: '15 phút', difficulty: 'Dễ', color: 'bg-blue-100' },
-                { title: 'Lịch sử Việt Nam', questions: 22, time: '18 phút', difficulty: 'Trung bình', color: 'bg-purple-100' },
-                { title: 'Địa lý thế giới', questions: 16, time: '14 phút', difficulty: 'Dễ', color: 'bg-pink-100' }
-            ] }">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" x-data="{
+                quizzes: [
+                    { title: 'Toán cơ bản', questions: 20, time: '15 phút', difficulty: 'Dễ', color: 'bg-green-100' },
+                    { title: 'Tiếng Việt lớp 3', questions: 15, time: '12 phút', difficulty: 'Trung bình', color: 'bg-yellow-100' },
+                    { title: 'Khoa học tự nhiên', questions: 25, time: '20 phút', difficulty: 'Khó', color: 'bg-red-100' },
+                    { title: 'Tiếng Anh cơ bản', questions: 18, time: '15 phút', difficulty: 'Dễ', color: 'bg-blue-100' },
+                    { title: 'Lịch sử Việt Nam', questions: 22, time: '18 phút', difficulty: 'Trung bình', color: 'bg-purple-100' },
+                    { title: 'Địa lý thế giới', questions: 16, time: '14 phút', difficulty: 'Dễ', color: 'bg-pink-100' }
+                ]
+            }">
                 <template x-for="(quiz, index) in quizzes" :key="index">
-                    <div class="card border-2 hover:scale-105 transition-all duration-300 cursor-pointer hover-bounce" :class="quiz.color">
+                    <div class="card border-2 hover:scale-105 transition-all duration-300 cursor-pointer hover-bounce"
+                        :class="quiz.color">
                         <div class="card-body">
                             <div class="flex items-center justify-between mb-4">
-                                <svg class="w-8 h-8 text-primary animate-wiggle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                <svg class="w-8 h-8 text-primary animate-wiggle" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                                    </path>
                                 </svg>
-                                <div class="badge" :class="quiz.difficulty === 'Dễ' ? 'badge-success' : quiz.difficulty === 'Trung bình' ? 'badge-warning' : 'badge-error'" x-text="quiz.difficulty"></div>
+                                <div class="badge"
+                                    :class="quiz.difficulty === 'Dễ' ? 'badge-success' : quiz
+                                        .difficulty === 'Trung bình' ? 'badge-warning' : 'badge-error'"
+                                    x-text="quiz.difficulty"></div>
                             </div>
                             <h2 class="card-title text-xl font-bold text-primary" x-text="quiz.title"></h2>
                             <div class="space-y-2 mb-4">
@@ -225,7 +182,9 @@
                             <div class="card-actions justify-center">
                                 <button class="btn btn-secondary w-full">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                                        </path>
                                     </svg>
                                     Làm bài ngay
                                 </button>
@@ -245,17 +204,24 @@
                 <p class="text-xl text-gray-700">Cập nhật những bài học mới và thú vị nhất</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" x-data="{ lessons: [
-                { title: 'Phép cộng trong phạm vi 100', subject: 'Toán học', views: 1234, comments: 45 },
-                { title: 'Tả cảnh thiên nhiên', subject: 'Tiếng Việt', views: 987, comments: 32 },
-                { title: 'Colors and Shapes', subject: 'Tiếng Anh', views: 756, comments: 28 },
-                { title: 'Chu trình nước trong tự nhiên', subject: 'Khoa học', views: 654, comments: 19 }
-            ] }">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" x-data="{
+                lessons: [
+                    { title: 'Phép cộng trong phạm vi 100', subject: 'Toán học', views: 1234, comments: 45 },
+                    { title: 'Tả cảnh thiên nhiên', subject: 'Tiếng Việt', views: 987, comments: 32 },
+                    { title: 'Colors and Shapes', subject: 'Tiếng Anh', views: 756, comments: 28 },
+                    { title: 'Chu trình nước trong tự nhiên', subject: 'Khoa học', views: 654, comments: 19 }
+                ]
+            }">
                 <template x-for="(lesson, index) in lessons" :key="index">
-                    <div class="card bg-base-100 shadow-lg border-2 hover:shadow-xl transition-all duration-300 cursor-pointer hover-bounce">
-                        <div class="aspect-video bg-gradient-to-br from-yellow-200 to-orange-200 rounded-t-lg flex items-center justify-center">
-                            <svg class="w-12 h-12 text-primary animate-bounce-gentle" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+                    <div
+                        class="card bg-base-100 shadow-lg border-2 hover:shadow-xl transition-all duration-300 cursor-pointer hover-bounce">
+                        <div
+                            class="aspect-video bg-gradient-to-br from-yellow-200 to-orange-200 rounded-t-lg flex items-center justify-center">
+                            <svg class="w-12 h-12 text-primary animate-bounce-gentle" fill="currentColor"
+                                viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                                    clip-rule="evenodd"></path>
                             </svg>
                         </div>
                         <div class="card-body">
@@ -264,13 +230,17 @@
                             <div class="flex items-center justify-between text-sm text-gray-500 mb-3">
                                 <div class="flex items-center space-x-1">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                        </path>
                                     </svg>
                                     <span x-text="lesson.views"></span>
                                 </div>
                                 <div class="flex items-center space-x-1">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                                        </path>
                                     </svg>
                                     <span x-text="lesson.comments"></span>
                                 </div>
@@ -284,66 +254,4 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer footer-center p-10 bg-gradient-to-r from-yellow-400 to-orange-400 text-white">
-        <div class="grid grid-flow-col gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                </div>
-                <h4 class="text-2xl font-bold">NghienCuuKhoaHoc</h4>
-            </div>
-        </div>
-        <div class="grid grid-flow-col gap-4">
-            <a class="link link-hover">Lớp học</a>
-            <a class="link link-hover">Môn học</a>
-            <a class="link link-hover">Trắc nghiệm</a>
-            <a class="link link-hover">Liên hệ</a>
-        </div>
-        <div>
-            <p class="text-yellow-100">Nền tảng học tập trực tuyến dành cho trẻ em, mang đến trải nghiệm học tập vui vẻ và hiệu quả.</p>
-        </div>
-        <div>
-            <p>&copy; 2024 NghienCuuKhoaHoc. Tất cả quyền được bảo lưu.</p>
-        </div>
-    </footer>
-
-    <!-- GSAP Animations -->
-    <script>
-        // Initialize GSAP animations when page loads
-        $(document).ready(function() {
-            // Animate hero section
-            gsap.from(".hero h2", {duration: 1, y: 50, opacity: 0, ease: "power2.out"});
-            gsap.from(".hero p", {duration: 1, y: 30, opacity: 0, delay: 0.3, ease: "power2.out"});
-            // gsap.from(".hero .btn", {duration: 1, y: 20, opacity: 0, delay: 0.6, stagger: 0.2, ease: "power2.out"});
-            
-            // Animate cards on scroll
-            gsap.registerPlugin(ScrollTrigger);
-            
-            gsap.utils.toArray('.card').forEach((card, i) => {
-                gsap.from(card, {
-                    duration: 0.8,
-                    y: 50,
-                    opacity: 0,
-                    delay: i * 0.1,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 80%",
-                        end: "bottom 20%",
-                        toggleActions: "play none none reverse"
-                    }
-                });
-            });
-            
-            // Add click animations for buttons
-            $('.btn').on('click', function() {
-                gsap.to(this, {duration: 0.1, scale: 0.95, yoyo: true, repeat: 1});
-            });
-        });
-    </script>
-</body>
-</html>
+@endsection
