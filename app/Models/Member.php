@@ -27,7 +27,11 @@ class Member extends Authenticatable
     ];
 
     protected $casts = [
-        'role' => RoleEnum::class,
+        'role' => 'int',
         'password' => 'hashed'
     ];
+
+    public function isProvidedAccout(){
+        return $this->provider_name !== null;
+    }
 }

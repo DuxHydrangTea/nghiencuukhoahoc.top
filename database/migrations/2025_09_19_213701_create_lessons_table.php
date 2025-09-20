@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('video_url')->nullable();
             $table->text('slide_url')->nullable();
             $table->integer('duration')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

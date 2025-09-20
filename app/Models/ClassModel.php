@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ClassModel extends Model
+{
+    //
+    protected $table = 'classes';
+
+    protected $fillable = [
+        'title',
+        'description',
+        'thumbnail',
+        'icon',
+        'slogan',
+        'tags',
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
+    ];
+}

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text ('thumbnail')->nullable();
             $table->string('icon')->nullable();
+            $table->string('color')->nullable();
             $table->json('tags')->nullable();
             $table->timestamps();
         });

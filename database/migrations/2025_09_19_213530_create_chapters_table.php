@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('subject_id')->nullable();
+            $table->unsignedBigInteger('volume_id')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->text ('thumbnail')->nullable();
             $table->string('icon')->nullable();
+            $table->string('color')->nullable();
             $table->json('tags')->nullable();
             $table->timestamps();
         });
