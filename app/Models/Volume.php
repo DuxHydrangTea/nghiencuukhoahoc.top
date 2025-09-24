@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Volume extends Model
 {
     protected $fillable = [
-        'subject_id',
+        'class_subject_id',
         'title',
         'description',
         'thumbnail',
@@ -19,7 +19,7 @@ class Volume extends Model
         'tags' => 'array'
     ];
 
-    public function subject(){
-        return $this->belongsTo(Subject::class);
+    public function classSubject(){
+        return $this->belongsTo(ClassSubject::class);
     }
 }

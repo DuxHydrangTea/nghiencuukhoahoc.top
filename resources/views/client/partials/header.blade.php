@@ -55,7 +55,7 @@
                 </svg>
                 <div class="avatar">
                     <div class="w-8 rounded">
-                        <img src="{{ auth( 'members')->user()?->avatar }}"
+                        <img src="{{ auth( 'members')->user()?->avatar_url }}"
                             alt="Tailwind-CSS-Avatar-component" />
                     </div>
                 </div>

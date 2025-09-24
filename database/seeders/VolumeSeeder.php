@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ClassSubject;
 use App\Models\Subject;
 use App\Models\Volume;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,11 +15,11 @@ class VolumeSeeder extends Seeder
      */
     public function run(): void
     {
-        Subject::all()->each(function ($sb){
+        ClassSubject::all()->each(function ($sb){
             Volume::create([
-                'subject_id' => $sb->id,
+                'class_subject_id' => $sb->id,
                 'title' => 'Chương 1',
-                'description' => $sb->title . ' cơ bản',
+                'description' => $sb->subject->title . ' ' . $sb->class->title . ' cơ bản',
                 'thumbnail' => asset('assets/imgs/no-image.gif'),
                 'icon' => "",
                 'color' => 'blue',
@@ -26,9 +27,9 @@ class VolumeSeeder extends Seeder
             ]);
 
             Volume::create([
-                'subject_id' => $sb->id,
+                'class_subject_id' => $sb->id,
                 'title' => 'Chương 2',
-                'description' => $sb->title . ' nâng cao',
+                'description' => $sb->subject->title . ' ' . $sb->class->title . ' nâng cao',
                 'thumbnail' => asset('assets/imgs/no-image.gif'),
                 'icon' => "",
                 'color' => 'green',

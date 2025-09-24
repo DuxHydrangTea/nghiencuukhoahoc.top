@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('class_subjects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('chapter_id')->nullable();
-            $table->string('title')->nullable();
+            $table->unsignedBigInteger('class_id')->nullable();
+            $table->unsignedBigInteger('subject_id')->nullable();
             $table->text('description')->nullable();
             $table->text ('thumbnail')->nullable();
             $table->string('icon')->nullable();
-            $table->json('tags')->nullable();
-            $table->text('video_url')->nullable();
-            $table->text('slide_file')->nullable();
-            $table->text('slide_url')->nullable();
-            $table->integer('duration')->nullable();
             $table->string('color')->nullable();
+            $table->json('tags')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('class_subjects');
     }
 };

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\RoleEnum;
 use Hash;
+use Storage;
 
 class Member extends Authenticatable
 {
@@ -33,5 +34,9 @@ class Member extends Authenticatable
 
     public function isProvidedAccout(){
         return $this->provider_name !== null;
+    }
+
+    public function getAvatarUrlAttribute(){
+        return $this->isProvidedAccout() ? $this->avatar : Storage::disk('b2')->url($this->avatar);
     }
 }

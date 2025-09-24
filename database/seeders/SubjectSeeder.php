@@ -58,17 +58,14 @@ class SubjectSeeder extends Seeder
         ];
 
         for($i = 0; $i <8; $i ++){
-            for($cl = 1; $cl <= 8; $cl ++){
-                Subject::create([
-                    'class_id' => $cl,
-                    'title' => $names[$i],
-                    'description' => $des[$i],
-                    'thumbnail' => asset('assets/imgs/no-image.gif'),
-                    'icon' => $icons[$i],
-                    'color' => $colors[$i],
-                    'tags' => [],
-                ]);
-            }
+            Subject::create([
+                'title' => $names[$i],
+                'description' => $des[$i],
+                'thumbnail' => asset('assets/imgs/no-image.gif'),
+                'icon' => $icons[$i],
+                'color' => $colors[$i],
+                'tags' => [],
+            ]);
         }
     }
 }

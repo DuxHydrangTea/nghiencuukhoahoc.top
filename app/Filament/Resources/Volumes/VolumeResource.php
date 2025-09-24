@@ -38,17 +38,16 @@ class VolumeResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->schema([
-            Select::make('subject_id')
+            Select::make('class_subject_id')
                 ->label('Môn học')
-                ->options(Subject::pluck('title', 'id'))
-                ->searchable()
+                ->relationship('classSubject', 'description')
                 ->required(),
-            TextInput::make('title')->required(),
+            TextInput::make('title')->required()->placeholder('Tập 1...'),
             Textarea::make('description')->nullable(),
             FileUpload::make('thumbnail')
                 ->label('Thumbnail')
                 ->image()
-                ->disk('public')
+                ->disk('b2')
                 ->nullable(),
             TextInput::make('icon')->nullable(),
             Select::make('color')
@@ -65,16 +64,16 @@ class VolumeResource extends Resource
             ->recordTitleAttribute('Volume')
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('subject.title')
+                TextColumn::make('classSubject.subject.title')
                     ->label('Môn học')
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('subject.class.title')
+                TextColumn::make('classSubject.class.title')
                     ->label('Lớp học')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('title')->searchable(),
-                ImageColumn::make('thumbnail')->circular(),
+                ImageColumn::make('thumbnail')->disk('b2')->circular(),
                 TextColumn::make('icon'),
                 TextColumn::make('color')
                     ->badge()
@@ -84,7 +83,12 @@ class VolumeResource extends Resource
                 TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
-             
+                SelectFilter::make('classSubject.class_id')
+                    ->label('Môn học')
+                    ->relationship('classSubject.subject', 'title'),
+                SelectFilter::make('classSubject.subject_id')
+                    ->label('Lớp học')
+                    ->relationship('classSubject.class', 'title'),
             ])
             ->recordActions([
                 EditAction::make(),

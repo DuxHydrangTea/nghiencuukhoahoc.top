@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('volumes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('subject_id')->nullable();
+            $table->unsignedBigInteger('class_subject_id')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->text ('thumbnail')->nullable();

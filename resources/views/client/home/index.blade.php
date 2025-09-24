@@ -31,7 +31,6 @@
             </div>
         </div>
     </section>
-
     <!-- Classes Section -->
     <section class="py-16 px-4 bg-gradient-to-r from-yellow-100/50 to-orange-100/50 ">
         <div class="container mx-auto">
@@ -42,14 +41,9 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" x-data="{
                 classes: [
-                    { grade: 'Lớp 1', color: 'bg-red-100 border-red-200', icon: '🌟', students: 245 },
-                    { grade: 'Lớp 2', color: 'bg-blue-100 border-blue-200', icon: '🚀', students: 198 },
-                    { grade: 'Lớp 3', color: 'bg-green-100 border-green-200', icon: '🎨', students: 167 },
-                    { grade: 'Lớp 4', color: 'bg-purple-100 border-purple-200', icon: '🏆', students: 203 },
-                    { grade: 'Lớp 5', color: 'bg-pink-100 border-pink-200', icon: '🎯', students: 189 },
-                    { grade: 'Lớp 6', color: 'bg-indigo-100 border-indigo-200', icon: '🔬', students: 156 },
-                    { grade: 'Lớp 7', color: 'bg-yellow-100 border-yellow-200', icon: '📐', students: 134 },
-                    { grade: 'Lớp 8', color: 'bg-cyan-100 border-cyan-200', icon: '🌍', students: 178 }
+                    @foreach ($classes as $class )
+                        { grade: '{{$class->title}}', color: 'bg-{{ $class->color }}-100 border-{{ $class->color }}-200', icon: '{{ $class->icon }}', students: 245 },
+                    @endforeach
                 ]
             }">
                 <template x-for="(classItem, index) in classes" :key="index">
@@ -87,12 +81,9 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" x-data="{
                 subjects: [
-                    { subject: 'Toán học', icon: '🔢', description: 'Học toán vui vẻ với các bài tập thú vị', lessons: 45, color: 'from-blue-400 to-blue-600' },
-                    { subject: 'Tiếng Việt', icon: '📝', description: 'Rèn luyện kỹ năng đọc viết tiếng Việt', lessons: 38, color: 'from-green-400 to-green-600' },
-                    { subject: 'Tiếng Anh', icon: '🌍', description: 'Học tiếng Anh qua trò chơi và bài hát', lessons: 32, color: 'from-purple-400 to-purple-600' },
-                    { subject: 'Khoa học', icon: '🔬', description: 'Khám phá thế giới xung quanh qua thí nghiệm', lessons: 28, color: 'from-orange-400 to-orange-600' },
-                    { subject: 'Lịch sử', icon: '🏛️', description: 'Tìm hiểu lịch sử dân tộc qua câu chuyện', lessons: 25, color: 'from-red-400 to-red-600' },
-                    { subject: 'Địa lý', icon: '🗺️', description: 'Khám phá thế giới qua bản đồ tương tác', lessons: 22, color: 'from-cyan-400 to-cyan-600' }
+                    @foreach ($subjects as $subject )
+                        { subject: '{{ $subject->title }}', icon: '{{ $subject->icon }}', description: '{{ $subject->description }}', lessons: 45, color: 'from-{{ $subject->color }}-400 to-{{ $subject->color }}-600' },
+                    @endforeach
                 ]
             }">
                 <template x-for="(subject, index) in subjects" :key="index">

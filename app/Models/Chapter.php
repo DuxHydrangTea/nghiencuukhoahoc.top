@@ -22,4 +22,8 @@ class Chapter extends Model
     protected $casts = [
         'tags' => 'array'
     ];
+
+    public function volume(){
+        return $this->belongsTo(Volume::class);
+    }
 }

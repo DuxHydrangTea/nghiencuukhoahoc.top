@@ -19,3 +19,12 @@
 <link rel="stylesheet" href="{{ asset('assets/libs/style.css') }}">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+{{-- resumable --}}
+<script src="https://cdn.jsdelivr.net/npm/resumablejs/resumable.js"></script>
+<script>
+    window.csrf_token = '{{ csrf_token() }}'
+</script>
+@routes

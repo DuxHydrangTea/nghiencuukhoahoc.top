@@ -41,7 +41,7 @@ class ClassModelResource extends Resource
             FileUpload::make('thumbnail')
                 ->label('Thumbnail')
                 ->image()
-                ->disk('public')
+                ->disk('b2')
                 ->nullable(),
             TextInput::make('icon')->nullable(),
             TextInput::make('slogan')->nullable(),
@@ -60,7 +60,7 @@ class ClassModelResource extends Resource
             ->columns([
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('title')->searchable(),
-                ImageColumn::make('thumbnail')->circular(),
+                ImageColumn::make('thumbnail')->disk('b2')->circular(),
                 TextColumn::make('icon'),
                 TextColumn::make('slogan'),
                 TextColumn::make('color')

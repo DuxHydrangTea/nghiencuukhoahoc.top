@@ -21,7 +21,7 @@ class MemberForm
             FileUpload::make('avatar')
                 ->label('Avatar')
                 ->image()
-                ->disk('public')
+                ->disk('b2')
                 ->nullable()
                 ->imageEditor()
                 ->imageEditorAspectRatios(['1:1'])

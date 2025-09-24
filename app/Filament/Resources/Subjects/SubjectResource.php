@@ -7,6 +7,7 @@ use App\Filament\Resources\Subjects\Pages\ManageSubjects;
 use App\Models\ClassModel;
 use App\Models\Subject;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -37,17 +38,12 @@ class SubjectResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->schema([
-            Select::make('class_id')
-                ->label('Lớp học')
-                ->options(ClassModel::pluck('title', 'id')) // nếu đã định nghĩa quan hệ trong model
-                ->searchable()
-                ->required(),
             TextInput::make('title')->required(),
             Textarea::make('description')->nullable(),
             FileUpload::make('thumbnail')
                 ->label('Thumbnail')
                 ->image()
-                ->disk('public')
+                ->disk('b2')
                 ->nullable(),
             TextInput::make('icon')->nullable(),
             Select::make('color')
@@ -63,13 +59,9 @@ class SubjectResource extends Resource
         return $table
             ->recordTitleAttribute('Subjects')
             ->columns([
-                TextColumn::make('class.title')
-                    ->label('Lớp học')
-                    ->sortable()
-                    ->searchable(),
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('title')->searchable(),
-                ImageColumn::make('thumbnail')->circular(),
+                ImageColumn::make('thumbnail')->disk('b2')->circular(),
                 TextColumn::make('icon'),
                 TextColumn::make('slogan'),
                 TextColumn::make('color')
@@ -80,8 +72,7 @@ class SubjectResource extends Resource
                 TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
-                SelectFilter::make('class')
-                    ->relationship('class', 'title'),
+             
             ])
             ->recordActions([
                 EditAction::make(),

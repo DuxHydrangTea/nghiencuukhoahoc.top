@@ -20,4 +20,12 @@ class Lesson extends Model
         'slide_url',
         'duration',
     ];
+
+    protected $casts = [
+        'tags' => 'array'
+    ];
+
+    public function chapter (){
+        return $this->belongsTo(Chapter::class);
+    }
 }
